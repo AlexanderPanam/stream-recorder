@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using StreamRecorder.Configurations;
 using StreamRecorder.Interfaces;
 
-namespace StreamRecorder
+namespace StreamRecorder.Services
 {
     public class BaseRecorder : IRecorder
     {

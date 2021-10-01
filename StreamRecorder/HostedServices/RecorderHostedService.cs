@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using StreamRecorder.Interfaces;
 
-namespace StreamRecorder
+namespace StreamRecorder.HostedServices
 {
     public class RecorderHostedService : BackgroundService
     {
