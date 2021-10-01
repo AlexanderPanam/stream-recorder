@@ -28,11 +28,5 @@ namespace StreamRecorder
             }
             return Task.WhenAll(taskList);
         }
-
-        // public Task StopAsync(CancellationToken cancellationToken)
-        // {
-        //     _logger.LogInformation("Recorder Hosted service is shutting down");
-        //     return Task.CompletedTask;
-        // }
     }
 }
