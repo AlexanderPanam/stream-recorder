@@ -16,4 +16,5 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 RUN apt update
 RUN apt install streamlink -y
+RUN mkdir recordings
 ENTRYPOINT ["dotnet", "StreamRecorder.dll"]

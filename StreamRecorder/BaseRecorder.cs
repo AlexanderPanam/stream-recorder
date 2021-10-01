@@ -12,11 +12,13 @@ namespace StreamRecorder
     {
         private readonly ILogger<BaseRecorder> _logger;
         private readonly StreamConfiguration _streamConfiguration;
+        private readonly VolumeConfiguration _volumeConfiguration;
 
-        public BaseRecorder(ILogger<BaseRecorder> logger, StreamConfiguration streamConfiguration)
+        public BaseRecorder(ILogger<BaseRecorder> logger, StreamConfiguration streamConfiguration, VolumeConfiguration volumeConfiguration)
         {
             _logger = logger;
             _streamConfiguration = streamConfiguration;
+            _volumeConfiguration = volumeConfiguration;
         }
 
         public Task RecordAsync(CancellationToken cancellationToken)
@@ -30,7 +32,7 @@ namespace StreamRecorder
                     var processStartInfo = new ProcessStartInfo
                     {
                         FileName = @"streamlink",
-                        Arguments = $"--hls-duration 02:00 -o /Users/alexandermel/stream-recorder/{Guid.NewGuid()}.mpeg {url} best",
+                        Arguments = $"--hls-duration 02:00 -o {_volumeConfiguration.SavingPath}/{Guid.NewGuid()}.mpeg {url} best",
                         RedirectStandardOutput = true,
                         UseShellExecute = false
                     };
@@ -38,6 +40,7 @@ namespace StreamRecorder
                     var process = Process.Start(processStartInfo);
                     process?.WaitForExit();
                     var output = process?.StandardOutput.ReadToEnd();
+                    _logger.LogInformation($"Exit code {url}: {process.ExitCode}");
                     _logger.LogDebug(output);
                 }
 
