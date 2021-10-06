@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Microsoft.Extensions.Options;
@@ -17,10 +18,10 @@ namespace StreamRecorder.Services
             _volumeConfiguration = volumeConfiguration.Value;
         }
 
-        public Task UploadFileToRemote(string filename)
+        public Task UploadFileToRemoteAsync(string filename, CancellationToken cancellationToken)
         {
-            return _s3Client.UploadObjectFromFilePathAsync("recordings", filename,
-                $"{_volumeConfiguration.SavingPath}/{filename}", null);
+            return _s3Client.UploadObjectFromFilePathAsync("recordings", $"{filename}.mpeg",
+                $"{_volumeConfiguration.SavingPath}/{filename}.mpeg", null, cancellationToken);
         }
     }
 }

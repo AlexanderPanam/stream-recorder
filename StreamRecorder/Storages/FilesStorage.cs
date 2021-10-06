@@ -22,5 +22,16 @@ namespace StreamRecorder.Storages
         {
             return _processesToFilesMappings.Remove(pid);
         }
+
+        public bool Delete(IEnumerable<int> pids)
+        {
+            var result = true;
+            foreach (var pid in pids)
+            {
+                result = result && _processesToFilesMappings.Remove(pid);
+            }
+
+            return result;
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace StreamRecorder.Interfaces
         void Add(int pid, string filename);
         IDictionary<int, string> GetAll();
         bool Delete(int pid);
+        bool Delete(IEnumerable<int> pids);
     }
 }
